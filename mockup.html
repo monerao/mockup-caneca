@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Mockup de Caneca com Caixinha</title>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f0f0f0;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    #mockup-area {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+    }
+    .item {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      overflow: hidden;
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .item img.base {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .item img.overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+    }
+    .inputs {
+      margin-top: 20px;
+    }
+    input[type="file"] {
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Gerador de Mockup: Caneca com Caixinha</h1>
+
+  <div id="mockup-area">
+    <div class="item">
+      <img src="https://i.imgur.com/2XbMZrn.png" class="base" alt="Caneca">
+      <img id="canecaOverlay" class="overlay" src="">
+    </div>
+    <div class="item">
+      <img src="https://i.imgur.com/NuEv9Mo.png" class="base" alt="Caixinha">
+      <img id="caixinhaOverlay" class="overlay" src="">
+    </div>
+  </div>
+
+  <div class="inputs">
+    <label>Imagem para Caneca:</label><br>
+    <input type="file" accept="image/*" onchange="handleImageUpload(event, 'canecaOverlay')"><br><br>
+
+    <label>Imagem para Caixinha:</label><br>
+    <input type="file" accept="image/*" onchange="handleImageUpload(event, 'caixinhaOverlay')"><br>
+
+    <button onclick="baixarMockup()">📥 Baixar Mockup como Imagem</button>
+  </div>
+
+  <script>
+    function handleImageUpload(event, overlayId) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById(overlayId).src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function baixarMockup() {
+      const area = document.getElementById('mockup-area');
+      html2canvas(area).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'mockup-caneca-caixinha.png';
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+    }
+  </script>
+
+</body>
+</html>
